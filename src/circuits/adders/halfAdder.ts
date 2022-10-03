@@ -1,14 +1,16 @@
 import { getId } from "../../utils.ts";
 import { AndGate } from "../andGate.ts";
-import { Charge, Input, MultiOutput, Output } from "../index.ts";
+import { Output } from "../index.ts";
 import { XorGate } from "../xorGate.ts";
 
-interface HalfAdderOutput {
-  sum: Charge;
-  carry: Charge;
-}
-
-export class HalfAdder implements Input, MultiOutput<HalfAdderOutput> {
+/**
+ * @input numberA - first number to add
+ * @input numberB - second number to add
+ *
+ * @output sum - sumation of the two
+ * @output carry - carry result
+ */
+export class HalfAdder {
   id: string;
 
   private xorGate = new XorGate();
@@ -23,15 +25,11 @@ export class HalfAdder implements Input, MultiOutput<HalfAdderOutput> {
     this.andGate.connect(inputA, inputB);
   }
 
-  handleConnectToInput(input: Input, output: keyof HalfAdderOutput): void {
-    if (output === "sum") {
-      this.xorGate.handleConnectToInput(input);
-    } else if (output === "carry") {
-      this.andGate.handleConnectToInput(input);
-    }
+  get sumOutput(): Output {
+    return this.xorGate;
   }
 
-  handleInput(charge: boolean): void {
-    //
+  get carryOutput(): Output {
+    return this.andGate;
   }
 }

@@ -1,3 +1,5 @@
+import { Bit, Charge } from "./circuits/index.ts";
+
 export const getId = (name: string) => {
   const buf = new Uint8Array(20 / 2);
   crypto.getRandomValues(buf);
@@ -7,3 +9,7 @@ export const getId = (name: string) => {
   }
   return `${name}__${ret}`;
 };
+
+export const bitToCharge = (bit: Bit): boolean => !!bit;
+
+export const chargeToBit = (charge: Charge): Bit => (charge ? 1 : 0);
