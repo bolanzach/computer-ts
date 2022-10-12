@@ -1,6 +1,6 @@
 import { getId } from "../../utils.ts";
-import { AndGate } from "../andGate.ts";
 import { Output } from "../index.ts";
+import { OrGate } from "../orGate.ts";
 import { HalfAdder } from "./halfAdder.ts";
 
 export class FullAdder {
@@ -8,7 +8,7 @@ export class FullAdder {
 
   private halfAdderA = new HalfAdder();
   private halfAdderB = new HalfAdder();
-  private andGate = new AndGate();
+  private orGate = new OrGate();
 
   constructor() {
     this.id = getId("half_adder");
@@ -17,7 +17,7 @@ export class FullAdder {
   connect(inputA: Output, inputB: Output, carryIn: Output) {
     this.halfAdderA.connect(inputA, inputB);
     this.halfAdderB.connect(carryIn, this.halfAdderA.sumOutput);
-    this.andGate.connect(
+    this.orGate.connect(
       this.halfAdderB.carryOutput,
       this.halfAdderA.carryOutput
     );
@@ -28,6 +28,6 @@ export class FullAdder {
   }
 
   get carryOutput(): Output {
-    return this.andGate;
+    return this.orGate;
   }
 }

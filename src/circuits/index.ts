@@ -41,6 +41,14 @@ export type Bit = 0 | 1;
 /**
  * A byte is 8 bits
  *
+ * This is in the format: [most significant bit ... least significat bit]
+ *
+ * So the number (decimal) `100`
+ *
+ * is (binary) `01100100`
+ *
+ * which is `[0, 1, 1, 0, 0, 1, 0, 0]`
+ *
  * Notice that this is a tuple of `Output`. This is because our circuits need
  * electirc signals that can change. A bit is really just the Output of some
  * other circuit or power source. If these were just `Charge` then the bits

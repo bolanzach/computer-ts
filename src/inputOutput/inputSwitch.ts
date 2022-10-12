@@ -14,6 +14,10 @@ export class InputSwitch implements Input, Output {
     powerSource.handleConnectToInput(this);
   }
 
+  flip() {
+    this.charge = !this.charge;
+  }
+
   handleInput(charge: boolean): void {
     if (this.connections.length) {
       this.connections.forEach((input) =>
