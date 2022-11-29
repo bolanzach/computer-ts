@@ -10,13 +10,13 @@ import PowerSource from "../machine.ts";
  /////
 */
 
-const powerSource = new PowerSource({ tick: 1000 });
+const powerSource = new PowerSource({ tick: 200 });
 
 // Invert the power source signal
 const inverter = new Inverter();
 inverter.connect(powerSource);
 
-// First 8-bit number
+// First 8-bit number (the number 1)
 const inputA8 = new InputSwitch(powerSource, 0);
 const inputA7 = new InputSwitch(powerSource, 0);
 const inputA6 = new InputSwitch(powerSource, 0);
@@ -26,7 +26,7 @@ const inputA3 = new InputSwitch(powerSource, 0);
 const inputA2 = new InputSwitch(powerSource, 0);
 const inputA1 = new InputSwitch(powerSource, 1);
 
-// Second 8-bit number
+// Second 8-bit number (also the number 1)
 const inputB8 = new InputSwitch(powerSource, 0);
 const inputB7 = new InputSwitch(powerSource, 0);
 const inputB6 = new InputSwitch(powerSource, 0);
@@ -44,6 +44,8 @@ eightBitAdder.connect(
   inverter
 );
 
+// The sum is an 8-bit number, which is 1 + 1 = 2
+// or 00000010
 const sum = eightBitAdder.getOutputBytes();
 
 const output8 = new LogGate("0");
